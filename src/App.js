@@ -4,7 +4,7 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import { Fragment, useEffect } from "react";
 import Notification from "./components/UI/Notification";
-import { sendCartData } from "./components/store/cart-slice";
+import { retriveCartData, sendCartData } from "./components/store/cart-actions";
 
 let isInitial = true;
 
@@ -15,6 +15,11 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
+    dispatch(retriveCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    /// This is to store cart data in Firebase
     if (isInitial) {
       isInitial = false;
       return;
