@@ -2,9 +2,18 @@ import { useSelector } from "react-redux";
 import Card from "../UI/Card";
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
+import { useEffect } from "react";
 
 const Cart = () => {
   const items = useSelector((state) => state.cart.items);
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    fetch("https://datafetcheapp-default-rtdb.firebaseio.com/cart.json", {
+      method: "PUT",
+      body: JSON.stringify(cart),
+    });
+  }, [cart]);
 
   return (
     <Card className={classes.cart}>
